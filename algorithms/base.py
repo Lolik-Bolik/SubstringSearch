@@ -1,8 +1,9 @@
-from dataclasses import dataclass
-from typing import Iterable
+from dataclasses import dataclass, field
+from typing import List
+
 
 @dataclass
 class Results:
-    matches: Iterable
+    matches: List[int] = field(default_factory=list)
     n_operations: int = 0
     time: float = .0
