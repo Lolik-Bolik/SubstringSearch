@@ -15,6 +15,7 @@ class BruteForce:
         results = Results()
         timer = time()
         for offset in range(self.len_txt - self.len_pat + 1):
+            results.n_operations += 1
             patt_offset = 0
             while self.text[offset + patt_offset] == self.pattern[patt_offset]:
                 results.n_operations += 1
