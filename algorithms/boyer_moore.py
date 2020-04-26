@@ -1,4 +1,4 @@
-import utils_substring_problem
+import utils
 __all__ = ['BoyerMoore']
 
 
@@ -9,7 +9,7 @@ class BoyerMoore:
         self.m = len(pattern)
         self.n = len(text)
         self.badMatchTable = []
-        for i in range(256): self.badMatchTable.append(-1)
+        for i in range(max(256)): self.badMatchTable.append(-1)
         for i in range(self.m): self.badMatchTable[ord(pattern[i])] = self.m - i - 1
 
         self.operation_amount = 0
