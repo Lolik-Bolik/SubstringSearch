@@ -4,18 +4,25 @@ import os
 import csv
 import pandas as pd
 import matplotlib.pyplot as plt
-import random
 
 
-def draw_statistic(statistic):
-    figure = plt.figure(1, (15, 15))
-    # colors =
-    for object in statistic.Method_name.unique():
+def draw_statistic(statistic, filename):
+    plt.figure(figsize=(15, 8))
+    colors = ['k', 'r', 'g', 'c']
+    for object, color in zip(statistic.Method_name.unique(), colors):
         method = statistic[statistic['Method_name'] == object]
-        plt.plot(method['File_length'], method['Average_Work_time'], )
+        # I add 1e-9 as epsilon in order to force pyplot to build y-axis correctly
+        plt.plot(method['File_length'], method['Average_Work_time'], color=color, label=object, linewidth=3)
+        plt.scatter(method['File_length'], method['Average_Work_time'], color=color)
+        plt.grid(True)
+        plt.legend(fontsize=18)
+        plt.tick_params(labelsize=16)
+        plt.xlabel('Размер файла', fontsize=18)
+        plt.ylabel('Среднее время, sec.', fontsize=18)
+        plt.title('Среднее время работы', fontsize=20)
 
-    plt.show()
-
+    plt.savefig(filename)
+    #plt.show()
 
 def main(args):
     if args.make_csv:
@@ -39,14 +46,14 @@ def main(args):
                         results = algorithm.search()
                     average_time += results.time
                     average_time = average_time / args.experiment_number
-                    writer.writerow({'File_name': reference, 'Method_name': name, 'Average_Work_time': round(average_time, 4),
+                    writer.writerow({'File_name': reference, 'Method_name': name, 'Average_Work_time': (round(average_time, 5)),
                                      'Operations_amount': results.n_operations, 'File_length': len(text)})
 
     statistics = pd.read_csv('statistic.csv')
     good_statistic = statistics[16:]
-    bad_statistic = statistics[:15]
-    draw_statistic(good_statistic)
-    draw_statistic(bad_statistic)
+    bad_statistic = statistics[:16]
+    draw_statistic(good_statistic, 'good.png')
+    draw_statistic(bad_statistic, 'bad.png')
 
 
 
@@ -60,6 +67,7 @@ if __name__ == '__main__':
                         default=5,
                         help='number of experiments')
     parser.add_argument('-make_csv', type=bool,
-                        default=False)
+                        default=True)
     args = parser.parse_args()
     main(args)
+
