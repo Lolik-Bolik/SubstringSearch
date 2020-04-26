@@ -3,14 +3,16 @@ from .base import Results
 from time import time
 from _collections import defaultdict
 
+
 class BoyerMoore:
     def __init__(self, text, pattern):
         self.text = text
         self.pattern = pattern
+
         self.m = len(pattern)
         self.n = len(text)
         self.badMatchTable = defaultdict(lambda: -1)
-        for i in range(self.m): self.badMatchTable[ord(pattern[i])] = self.m
+        for i in range(self.m): self.badMatchTable[ord(pattern[i])] = i
 
     def search(self, **kwargs):
         results = Results
@@ -29,5 +31,5 @@ class BoyerMoore:
             else:
                 shift += max(1, j - self.badMatchTable[ord(self.text[shift + j])])
         finish = time()
-        results.time = round(finish - start, 4)
+        results.time = finish - start
         return results
