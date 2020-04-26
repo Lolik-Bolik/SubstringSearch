@@ -26,7 +26,6 @@ class BoyerMoore:
                 j -= 1
                 results.n_operations += 1
             if j < 0:
-                print("Match at : {}".format(shift))
                 shift += (self.m - self.badMatchTable[ord(self.text[shift + self.m])]
                           if shift + self.m < self.n else 1)
             else:

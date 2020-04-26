@@ -1,4 +1,3 @@
-import utils
 __all__ = ['KarpRabin']
 from .base import Results
 from time import time
