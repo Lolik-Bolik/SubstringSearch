@@ -11,7 +11,6 @@ def draw_statistic(statistic, filename):
     colors = ['k', 'r', 'g', 'c']
     for object, color in zip(statistic.Method_name.unique(), colors):
         method = statistic[statistic['Method_name'] == object]
-        # I add 1e-9 as epsilon in order to force pyplot to build y-axis correctly
         plt.plot(method['File_length'], method['Average_Work_time'], color=color, label=object, linewidth=3)
         plt.scatter(method['File_length'], method['Average_Work_time'], color=color)
         plt.grid(True)
