@@ -1,4 +1,4 @@
-import utils
+from utils import timeit
 __all__ = ['BoyerMoore']
 
 
@@ -9,11 +9,11 @@ class BoyerMoore:
         self.m = len(pattern)
         self.n = len(text)
         self.badMatchTable = []
-        for i in range(max(256)): self.badMatchTable.append(-1)
-        for i in range(self.m): self.badMatchTable[ord(pattern[i])] = self.m - i - 1
+        for i in range(256): self.badMatchTable.append(-1)
+        for i in range(self.m): self.badMatchTable[ord(pattern[i])] = i
 
         self.operation_amount = 0
-
+    @timeit
     def search(self, **kwargs):
         shift = 0
         while (shift <= self.n - self.m):
@@ -21,6 +21,7 @@ class BoyerMoore:
             self.operation_amount += 1
             while j >= 0 and self.pattern[j] == self.text[shift + j]:
                 j -= 1
+                self.operation_amount += 1
             if j < 0:
                 print("Match at : {}".format(shift))
                 shift += (self.m - self.badMatchTable[ord(self.text[shift + self.m])]
