@@ -1,6 +1,7 @@
 __all__ = ['KnuttMorrisPratt']
-from .base import Results
 from time import time
+
+from .base import Results
 
 
 class KnuttMorrisPratt:
@@ -10,14 +11,13 @@ class KnuttMorrisPratt:
         self.len_pat = len(pattern)
         self.len_txt = len(text)
 
-
     def _compute_prefix_function(self):
         result = [-1] * self.len_pat
         k = -1
         n_operations = 0
         for i in range(1, self.len_pat):
             n_operations += 1
-            while k > - 1 and self.pattern[k + 1] != self.pattern[i]:
+            while k > -1 and self.pattern[k + 1] != self.pattern[i]:
                 k = result[k]
             if self.pattern[k + 1] == self.pattern[i]:
                 k += 1
@@ -48,5 +48,3 @@ class KnuttMorrisPratt:
             offset += 1
         results.time = time() - timer
         return results
-
-

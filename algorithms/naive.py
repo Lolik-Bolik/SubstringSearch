@@ -1,6 +1,7 @@
 __all__ = ['BruteForce']
-from .base import Results
 from time import time
+
+from .base import Results
 
 
 class BruteForce:
@@ -23,9 +24,7 @@ class BruteForce:
                     if not several_matches:
                         results.time = time() - timer
                         return results
-                    else:
-                        break
+                    break
                 patt_offset += 1
         results.time = time() - timer
         return results
-
