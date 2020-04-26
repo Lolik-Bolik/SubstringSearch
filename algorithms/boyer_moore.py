@@ -16,6 +16,7 @@ class BoyerMoore:
 
     def search(self, **kwargs):
         results = Results
+        results.n_operations = 0
         start = time()
         shift = 0
         while (shift <= self.n - self.m):
