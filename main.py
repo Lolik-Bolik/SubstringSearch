@@ -26,8 +26,6 @@ def main(args):
                             'Operations_amount': results.n_operations})
 
 
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--path', type=str,
