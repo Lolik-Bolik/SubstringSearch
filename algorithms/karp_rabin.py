@@ -1,6 +1,7 @@
 __all__ = ['KarpRabin']
-from .base import Results
 from time import time
+
+from .base import Results
 
 
 class KarpRabin:
@@ -42,18 +43,15 @@ class KarpRabin:
                 if self.thash < 0:
                     self.thash += self.q
 
-
-
-
         results.time = time() - timer
         return results
 
     @staticmethod
     def _check_prime(value):
-        if value == 0 or value == 1:
+        if value in (0, 1):
             return False
         i = 2
-        while i*i <= value:
+        while i * i <= value:
             if value % i == 0:
                 return False
             i += 1
@@ -63,4 +61,3 @@ class KarpRabin:
         while not self._check_prime(value):
             value += 1
         return value
-
